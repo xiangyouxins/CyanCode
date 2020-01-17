@@ -11,8 +11,8 @@
       </van-cell-group>
         </div>-->
         <div class="inp">
-            <input type="text" v-model="value" placeholder="用户名" />
-            <input type="password" v-model="password" placeholder="密码" />
+            <input type="text" v-model.trim="value" placeholder="用户名" />
+            <input type="password" v-model.trim="password" placeholder="密码" />
         </div>
         <div class="tips"></div>
         <div class="btn">
@@ -26,12 +26,13 @@
         <van-dialog
             v-model="regist"
             title="注册"
+            :before-close='beforeClose'
             show-cancel-button
         >
             <div class="inp">
-                <input type="text" v-model="registObj.value" placeholder="用户名" />
-                <input type="password" v-model="registObj.password1" placeholder="密码" />
-                <input type="password" v-model="registObj.password2" placeholder="确认密码" />
+                <input type="text" v-model.trim="registObj.value" placeholder="用户名" />
+                <input type="password" v-model.trim="registObj.password1" placeholder="密码" />
+                <input type="password" v-model.trim="registObj.password2" placeholder="确认密码" />
             </div>
         </van-dialog>
         <ul class="bg-bubbles">
@@ -50,7 +51,7 @@
 </template>
 
 <script>
-import { login } from "api/login";
+import { login,regist } from "api/login";
 import { Toast } from "vant";
 import md5 from 'js-md5';
 export default {
@@ -66,7 +67,7 @@ export default {
             registObj: {
                 value: '',
                 password1: '',
-                password2: '    '
+                password2: ''
             }
         };
     },
@@ -103,7 +104,42 @@ export default {
             })
         },
         showregist(){
+            this.registObj = {
+                value: '',
+                password1: '',
+                password2: ''
+            }
             this.regist = true
+        },
+        beforeClose(action, done) {
+            if (action === 'confirm') {
+                if (this.registObj.value == "") {
+                    Toast("请输入用户名");
+                    done(false)
+                    return;
+                }
+                if (this.registObj.password1 == "") {
+                    Toast("请输入密码");
+                    done(false)
+                    return;
+                }
+                if(this.registObj.password1 != this.registObj.password2){
+                    Toast("两次输入的密码不一致");
+                    done(false)
+                    return;
+                }
+                regist(this.registObj.value, md5(this.registObj.password1)).then((res) => {
+                    if(res.code == 200){
+                        Toast(res.msg);
+                        done();
+                    }else{
+                        done(false)
+                        Toast(res.msg);
+                    }
+                })
+            } else {
+                done();
+            }
         }
     }
 };

@@ -7,7 +7,7 @@ axios.defaults.baseURL= "";//测试环境
 // export const baseURL = axios.defaults.baseURL
 export const urls = {
     login: "/api/login",//登录
-    
+    regist: "/api/regist"//注册
 }
 
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'

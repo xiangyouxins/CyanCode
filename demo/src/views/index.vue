@@ -1,15 +1,15 @@
 <template>
     <div class="index">
         <van-nav-bar title="主页" />
-        <van-swipe :autoplay="3000" indicator-color="white">
+        <van-swipe :autoplay="7000" indicator-color="white">
             <van-swipe-item>
-                <div class="swiperItem"></div>
+                <div class="swiperItem" :style="{backgroundImage:`url(${banna1})`}"></div>
             </van-swipe-item>
             <van-swipe-item>
-                <div class="swiperItem"></div>
+                <div class="swiperItem" :style="{backgroundImage:`url(${banna2})`}"></div>
             </van-swipe-item>
             <van-swipe-item>
-                <div class="swiperItem"></div>
+                <div class="swiperItem" :style="{backgroundImage:`url(${banna3})`}"></div>
             </van-swipe-item>
         </van-swipe>
     </div>
@@ -23,7 +23,10 @@ export default {
     },
     data() {
         return {
-            name:''
+            name:'',
+            banna1:require('../common/img/banna1.jpg'),
+            banna2:require('../common/img/banna2.jpeg'),
+            banna3:require('../common/img/banna3.jpg'),
         }
     },
     mounted() {
@@ -36,12 +39,10 @@ export default {
 .index {
     .swiperItem{
         width: 100%;
-        height: 17vh;
-        background: #23a6d5 ;
-        background: -webkit-linear-gradient(top left, #23a6d5 0%, #23d5ab 100%);
-        background: -moz-linear-gradient(top left, #23a6d5 0%, #23d5ab 100%);
-        background: -o-linear-gradient(top left, #23a6d5 0%, #23d5ab 100%);
-        background: linear-gradient(to bottom right, #23a6d5 0%, #23d5ab 100%);
+        height: 20vh;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 }
 </style>

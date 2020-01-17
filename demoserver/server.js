@@ -56,14 +56,16 @@ server.post('/regist', (req,res,next) => {
         if(err){
             res.send({'code':0,'msg':'注册失败','data':err})
         }else{
-            if(data.username == null || message == undefined){
-                db.query(`INSET INTO user_table(username,password) VALUES ('${req.body.username}','${req.body.password}')`,(err,data) => {
+            if(data.username == null || data.username == undefined){
+                db.query(`INSERT INTO user_table(username,password) VALUES ('${req.body.username}','${req.body.password}')`,(err,data) => {
                     if(err){
-                        res.send({'code':0,'msg':'注册失败'})
+                        res.send({'code':0,'msg':'注册失败','data':err})
                         next()
                     }else{
-                        res.send({'code':200,'msg':'注册成功'})
-                        next()
+                        setTimeout(() => {
+                            res.send({'code':200,'msg':'注册成功','data':data})
+                            next()
+                        },1000)
                     }
                 })
             }else{
