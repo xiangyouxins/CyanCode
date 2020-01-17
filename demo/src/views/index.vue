@@ -1,7 +1,7 @@
 <template>
     <div class="index">
         <van-nav-bar title="主页" />
-        <van-swipe :autoplay="7000" indicator-color="white">
+        <van-swipe :autoplay="8000" indicator-color="white">
             <van-swipe-item>
                 <div class="swiperItem" :style="{backgroundImage:`url(${banna1})`}"></div>
             </van-swipe-item>
